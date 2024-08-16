@@ -824,6 +824,12 @@ As of Wrangler v3.2.0, `wrangler dev` is supported by any Linux distributions pr
   - Specify Wrangler's logging level.
 - `--show-interactive-dev-session` {{<type>}}boolean{{</type>}} {{<prop-meta>}}(default: true if the terminal supports interactivity){{</prop-meta>}} {{<prop-meta>}}optional{{</prop-meta>}}
   - Show the interactive dev session.
+- `--experimental-types` {{<type>}}boolean{{</type>}} {{<prop-meta>}}optional{{</prop-meta>}}
+  - Run `wrangler types` in the background.
+- `--experimental-types-runtime`  {{<type>}}string{{</type>}} {{<prop-meta>}}optional{{</prop-meta>}} {{<prop-meta>}}(default: `./.wrangler/types/runtime.d.ts`){{</prop-meta>}}
+  - Alias for `wrangler types --x-runtime`
+- `--experimental-types-check` {{<type>}}boolean{{</type>}} {{<prop-meta>}}optional{{</prop-meta>}}
+  - Alias for `wrangler types -x-check`
 
 {{</definitions>}}
 
@@ -2818,7 +2824,7 @@ wrangler types [<PATH>] [OPTIONS]
 
 {{<Aside type="warning">}}
 
-The `--experimental-include-runtime` flag dynamically generates runtime types according to the `compatibility_date` and `compatibility_flags` defined in your `wrangler.toml`.
+The `--experimental-runtime` flag dynamically generates runtime types according to the `compatibility_date` and `compatibility_flags` defined in your `wrangler.toml`.
 
 It is a replacement for the `@cloudflare/workers-types` package, so that package should be uninstalled to avoid any potential conflict.
 
@@ -2841,11 +2847,15 @@ The minimum required Wrangler version to use this command is 3.66.1.
   - The name of the interface to generate for the environment object.
   - Not valid if the Worker uses the Service Worker syntax.
 
-- `--experimental-include-runtime` {{<type>}}string{{</type>}} {{<prop-meta>}}optional{{</prop-meta>}} {{<prop-meta>}}(default: `./.wrangler/types/runtime.d.ts`){{</prop-meta>}}
+- `--experimental-runtime` {{<type>}}string{{</type>}} {{<prop-meta>}}optional{{</prop-meta>}} {{<prop-meta>}}(default: `./.wrangler/types/runtime.d.ts`){{</prop-meta>}}
   - The path of the generated runtime types file.
   - Leave the path blank to use the default option, e.g. `npx wrangler types --x-include-runtime`
   - A custom path must be relative to the project root.
   - A custom path must have a `d.ts` extension.
+
+- `--experimental-check` {{<type>}}boolean{{</type>}} {{<prop-meta>}}optional{{</prop-meta>}}
+  - Run `tsc` after generating types.
+  - Passes flags through to `tsc`.
 
 {{</definitions>}}
 
